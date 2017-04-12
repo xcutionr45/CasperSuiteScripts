@@ -151,7 +151,7 @@ while read ID; do
 	## Get the Script name from its JSS ID
 	script_Name=$( curl -sku "${apiUser}:${apiPass}" -H "Accept: application/xml" "${jssScriptsURL}/id/${ID}" | xmllint --format - | awk -F'>|<' '/<name>/{print $3}' )
 	## Get the actual script contents from the API record for the script
-	script_Content=$( curl -sku "${apiUser}:${apiPass}"-H "Accept: application/xml" "${jssScriptsURL}/id/${ID}" | xmllint --format - | awk '/<script_contents>/,/<\/script_contents>/{print}' | sed -e 's/<script_contents>//g;s/<\/script_contents>//g;s/^ *//' )
+	script_Content=$( curl -sku "${apiUser}:${apiPass}" -H "Accept: application/xml" "${jssScriptsURL}/id/${ID}" | xmllint --format - | awk '/<script_contents>/,/<\/script_contents>/{print}' | sed -e 's/<script_contents>//g;s/<\/script_contents>//g;s/^ *//' )
 	script_Ext=$( echo "$script_Name" | awk -F. '{print $NF}' )
 	
 	echo "DEBUG: Script name is: $script_Name"
